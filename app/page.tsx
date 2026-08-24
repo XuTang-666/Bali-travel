@@ -112,6 +112,7 @@ function ExperienceCard({
           src={experience.photo.url}
           alt={experience.photo.alt}
           loading="lazy"
+          decoding="async"
         />
       </button>
       <div className="experience-copy">
@@ -174,7 +175,8 @@ function DaySection({
           <img
             src={mainPhoto.url}
             alt={mainPhoto.alt}
-            loading={day.day < 3 ? "eager" : "lazy"}
+            loading="lazy"
+            decoding="async"
           />
           <span className="photo-label">{mainPhoto.label}</span>
         </button>
@@ -193,7 +195,12 @@ function DaySection({
                 onClick={() => onOpenPhoto(photo)}
                 aria-label={"查看 " + photo.label + " 大图"}
               >
-                <img src={photo.url} alt={photo.alt} loading="lazy" />
+                <img
+                  src={photo.url}
+                  alt={photo.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span className="photo-label">{photo.label}</span>
               </button>
             ))}
@@ -345,6 +352,9 @@ export default function Home() {
           className="hero-photo"
           src={photos.ayanaPool.url}
           alt={photos.ayanaPool.alt}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="hero-shade" />
         <div className="hero-copy">
@@ -542,6 +552,7 @@ export default function Home() {
             <img
               src={selectedPhoto.url.replace("w=1500", "w=2200")}
               alt={selectedPhoto.alt}
+              decoding="async"
             />
             <figcaption>
               <span>{selectedPhoto.label}</span>
