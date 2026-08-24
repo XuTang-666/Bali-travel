@@ -1,0 +1,22 @@
+{
+  "version": "2.1",
+  "envId": "trial.code-d6gd9n4rf978348a5",
+  "hosting": [
+    {
+      "name": "indonesia-island-journey",
+      "root": ".",
+      "framework": "custom",
+      "installCommand": "npm ci",
+      "buildCommand": "npm run build:cloudbase",
+      "outputDir": "cloudbase-dist",
+      "deployPath": "/",
+      "ignore": [
+        ".git",
+        ".openai",
+        ".wrangler",
+        "dist",
+        "node_modules"
+      ]
+    }
+  ]
+}
