@@ -284,18 +284,25 @@ button {
   z-index: 10;
   top: 0;
   height: 82px;
-  display: flex;
-  justify-content: center;
-  gap: 36px;
-  overflow-x: auto;
   background: rgba(251, 250, 247, 0.94);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(15px);
+}
+
+.day-rail-track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
-.day-rail::-webkit-scrollbar {
+.day-rail-track::-webkit-scrollbar {
   display: none;
 }
 
@@ -1025,7 +1032,7 @@ footer > span,
     max-width: 480px;
   }
 
-  .day-rail {
+  .day-rail-track {
     justify-content: flex-start;
     gap: 29px;
     padding: 0 35px;
@@ -1153,6 +1160,9 @@ footer > span,
 
   .day-rail {
     height: 74px;
+  }
+
+  .day-rail-track {
     gap: 21px;
     padding: 0 17px;
   }
@@ -1995,12 +2005,8 @@ footer > span,
     -webkit-backdrop-filter: none;
   }
 
-  .day-rail a,
-  .chapters a,
-  .hero-action,
-  .back-to-top,
-  .photo-button {
-    touch-action: manipulation;
+  .day-rail-track {
+    touch-action: auto;
   }
 
   .journey {
