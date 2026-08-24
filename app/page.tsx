@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import {
   days,
   officialSources,
@@ -317,6 +317,25 @@ function DaySection({
 export default function Home() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
+  const jumpToDay = (event: MouseEvent<HTMLAnchorElement>, day: number) => {
+    if (!window.matchMedia("(max-width: 760px)").matches) return;
+
+    const target = document.getElementById("day-" + day);
+    if (!target) return;
+
+    event.preventDefault();
+    event.currentTarget.blur();
+
+    const rail = document.querySelector<HTMLElement>(".day-rail");
+    const railOffset = (rail?.offsetHeight ?? 0) + 16;
+    const top = Math.max(
+      0,
+      window.scrollY + target.getBoundingClientRect().top - railOffset,
+    );
+
+    window.scrollTo({ top, left: 0, behavior: "auto" });
+  };
+
   useEffect(() => {
     if (!selectedPhoto) return;
 
@@ -416,7 +435,11 @@ export default function Home() {
         </div>
         <div className="chapters">
           {chapters.map((chapter) => (
-            <a href={"#day-" + chapter.day} key={chapter.number}>
+            <a
+              href={"#day-" + chapter.day}
+              key={chapter.number}
+              onClick={(event) => jumpToDay(event, chapter.day)}
+            >
               <span className="chapter-number">{chapter.number}</span>
               <strong>{chapter.name}</strong>
               <span className="chapter-caption">{chapter.caption}</span>
@@ -426,12 +449,18 @@ export default function Home() {
       </section>
 
       <nav className="day-rail" aria-label="每日行程导航">
-        {days.map((day) => (
-          <a href={"#day-" + day.day} key={day.day}>
-            <strong>D{padDay(day.day)}</strong>
-            <span>{day.date}</span>
-          </a>
-        ))}
+        <div className="day-rail-track">
+          {days.map((day) => (
+            <a
+              href={"#day-" + day.day}
+              key={day.day}
+              onClick={(event) => jumpToDay(event, day.day)}
+            >
+              <strong>D{padDay(day.day)}</strong>
+              <span>{day.date}</span>
+            </a>
+          ))}
+        </div>
       </nav>
 
       <section className="journey" id="journey">
